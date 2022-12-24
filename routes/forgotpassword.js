@@ -35,7 +35,7 @@ forgotpasswordRouter.post("/forgotpassword", (req, res) => {
               "Click the link or copy and paste it in your browser to Reset your password.",
             text:
               "You have to complete this process within one hour of receiving it 💪:\n\n" +
-              `http://localhost:3000/reset-password/${token}\n\n` +
+              `https://shoppyme-shadrach.onrender.com/reset-password/${token}\n\n` +
               "If you didn't request this, Please ignore this email and your password will remain unchanged 🤷‍♀️.",
           };
 
