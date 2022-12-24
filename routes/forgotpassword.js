@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 
 const forgotpasswordRouter = express.Router();
 
+//forgot password
 forgotpasswordRouter.post("/forgotpassword", (req, res) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
