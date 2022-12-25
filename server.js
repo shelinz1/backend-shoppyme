@@ -30,13 +30,11 @@ app.use("/api/orders", orderRouter);
 app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, "../", "frontend", "build", "index.html")
-    )
-  );
+  app.get("/", (req, res) => {
+    res.send(
+      `<div style="text-align:center;color:yellow"><h5>server running in production environment</h5></div>`
+    );
+  });
 } else {
   app.get("/", (req, res) => {
     res.send(
@@ -46,4 +44,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(errorHandler);
-app.listen(process.env.PORT, console.log(`server running on port ${process.env.PORT}`));
+app.listen(
+  process.env.PORT,
+  console.log(`server running on port ${process.env.PORT}`)
+);
