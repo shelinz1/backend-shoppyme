@@ -31,7 +31,14 @@ app.use("/api/orders", orderRouter);
 app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
 
 //cors middleware
-app.use(cors());
+const corsOpts = {
+  origin: "*",
+  credentials: true,
+  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE", "GET"],
+  allowedHeaders: ["Content-Type"],
+  exposedHeaders: ["Content-Type"],
+};
+app.use(cors(corsOpts));
 
 if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => {
