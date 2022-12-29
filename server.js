@@ -32,7 +32,7 @@ app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
 
 //cors middleware
 const corsOpts = {
-  origin: "*",
+  origin: "https://shoppyme-shadrach.onrender.com/",
   credentials: true,
   methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE", "GET"],
   allowedHeaders: ["Content-Type"],
