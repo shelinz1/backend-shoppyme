@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const path = require("path");
 
 const connectDb = require("./config/database");
@@ -28,6 +29,9 @@ app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
+
+//cors middleware
+app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => {
