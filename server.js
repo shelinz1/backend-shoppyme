@@ -17,19 +17,11 @@ const app = express();
 
 connectDb();
 
-const allowlist = ["https://shoppyme-shadrach.onrender.com"];
-const corsOptionsDelegate = function (req, callback) {
-  let corsOptions;
-  if (allowlist.indexOf(req.header("Origin")) !== -1) {
-    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false }; // disable CORS for this request
-  }
-  callback(null, corsOptions); // callback expects two parameters: error and options
-};
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//cors middleware
+app.use(cors());
 
 //get paypal id from environment variable
 app.get("/api/keys/paypal", (req, res) => {
@@ -40,9 +32,6 @@ app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
-
-//cors middleware
-app.use(cors(corsOptionsDelegate));
 
 if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => {
