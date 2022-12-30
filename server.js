@@ -17,6 +17,17 @@ const app = express();
 
 connectDb();
 
+const allowlist = ["https://shoppyme-shadrach.onrender.com"];
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -31,16 +42,7 @@ app.use("/api/orders", orderRouter);
 app.use("/api/password", forgotpasswordRouter, resetPasswordRouter);
 
 //cors middleware
-app.use(
-  cors({
-    origin: "https://shoppyme-shadrach.onrender.com",
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: "GET,HEAD,PUT,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  })
-);
+app.use(cors(corsOptionsDelegate));
 
 if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => {
