@@ -35,7 +35,8 @@ app.use(
   cors({
     origin: "https://shoppyme-shadrach.onrender.com",
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: "GET,HEAD,PUT,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
   })
